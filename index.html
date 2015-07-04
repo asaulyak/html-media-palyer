@@ -7,26 +7,36 @@
 </head>
 <body>
 <div class="wrapper">
-	<div class="media-player">
-		<div class="cover"></div>
-		<div class="controls">
-			<div class="playback play"></div>
-			<div class="volume">
-				<div class="mute"></div>
-				<div class="max"></div>
-				<div class="progress">
-					<div class="slide"></div>
-					<div class="slider"></div>
-					<div class="side left"></div>
-					<div class="side right"></div>
-				</div>
-			</div>
-		</div>
-		<div class="metadata">
-			<div class="song-title">Burn it Down</div>
-			<div class="album-title">Linkin Park</div>
-		</div>
-	</div>
+	<!--<div class="media-player">-->
+		<!--<div class="cover"></div>-->
+		<!--<div class="controls">-->
+			<!--<div class="playback play"></div>-->
+			<!--<div class="volume">-->
+				<!--<div class="mute"></div>-->
+				<!--<div class="max"></div>-->
+				<!--<div class="progress">-->
+					<!--<div class="slide"></div>-->
+					<!--<div class="slider"></div>-->
+					<!--<div class="side left"></div>-->
+					<!--<div class="side right"></div>-->
+				<!--</div>-->
+			<!--</div>-->
+		<!--</div>-->
+		<!--<div class="metadata">-->
+			<!--<div class="song-title">Burn it Down</div>-->
+			<!--<div class="album-title">Linkin Park</div>-->
+		<!--</div>-->
+		<!--<audio class="audio">-->
+		<!--</audio>-->
+	<!--</div>-->
 </div>
+<script src="js/index.js"></script>
+<script>
+	var player = mPlayer.createPlayer({
+		container: '.wrapper'
+	});
+
+	player.play();
+</script>
 </body>
 </html>
