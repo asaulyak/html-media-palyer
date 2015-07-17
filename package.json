@@ -1,0 +1,29 @@
+{
+  "name": "html-media-palyer",
+  "version": "0.0.1",
+  "description": "HTML5 audio player",
+  "main": "gulpgile.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-base64": "^0.1.3",
+    "gulp-css-base64": "^1.3.2",
+    "gulp-inject": "^1.3.1",
+    "gulp-rename": "^1.2.2",
+    "readable-stream": "^2.0.2",
+    "through2": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asaulyak/html-media-palyer.git"
+  },
+  "author": "asaulyak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asaulyak/html-media-palyer/issues"
+  },
+  "homepage": "https://github.com/asaulyak/html-media-palyer"
+}

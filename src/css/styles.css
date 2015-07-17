@@ -11,7 +11,6 @@
 	background: -o-linear-gradient(top, #53555e 0%, #272c34 46%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #53555e 0%, #272c34 46%); /* IE10+ */
 	background: linear-gradient(to bottom, #53555e 0%, #272c34 46%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#53555e', endColorstr='#272c34', GradientType=0); /* IE6-9 */
 }
 
 .media-player .controls {
@@ -94,7 +93,6 @@
 	background: -o-linear-gradient(top, #ffffff 0%, #fefefe 51%, #dadada 59%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #ffffff 0%, #fefefe 51%, #dadada 59%); /* IE10+ */
 	background: linear-gradient(to bottom, #ffffff 0%, #fefefe 51%, #dadada 59%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dadada', GradientType=0); /* IE6-9 */
 }
 
 .media-player .controls .volume .progress .slider {
