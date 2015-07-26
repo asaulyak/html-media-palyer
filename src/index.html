@@ -17,8 +17,11 @@
 				<div class="mute"></div>
 				<div class="max"></div>
 				<div class="progress">
-					<div class="slide"></div>
-					<div class="slider"></div>
+					<div class="progress-background"></div>
+					<div class="slider-container">
+						<div class="slide"></div>
+						<div class="slider"></div>
+					</div>
 					<div class="side left"></div>
 					<div class="side right"></div>
 				</div>
@@ -28,19 +31,17 @@
 			<div class="song-title">Burn it Down</div>
 			<div class="album-title">Linkin Park</div>
 		</div>
-		<audio class="audio">
-		</audio>
 	</div>
 	<!-- endbuild -->
 
 </div>
-<!--<script src="js/index.js"></script>-->
-<!--<script>-->
-	<!--var player = mPlayer.createPlayer({-->
-		<!--container: '.wrapper'-->
-	<!--});-->
+<script src="js/index.js"></script>
+<script>
+	var player = mPlayer.createPlayer({
+		container: '.wrapper'
+	});
 
-	<!--player.play();-->
-<!--</script>-->
+	player.play('http://195.95.206.17/HitFM');
+</script>
 </body>
 </html>

@@ -6,13 +6,32 @@ var rename = require('gulp-rename');
 
 var config = {
 	appName: 'mplayer',
-	appPath: './mplayer.js'
+	outputFile: './mplayer.js',
+	originalJsFile: './src/js/index.js',
+	originalHtmlFile: './src/index.html',
+	originalCssFiles: './src/css/*'
 };
 
-gulp.task('build', function () {
-	var target = gulp.src('./src/js/index.js');
+gulp.task('create-output-file', function () {
+	var target = gulp.src(config.originalJsFile);
 
-	var source = gulp.src('./src/index.html')
+	//gulp.src(config.outputFile)
+	//	.pipe(clean())
+	//	.pipe(
+	gulp.src(config.originalJsFile)
+		.pipe(rename(config.outputFile))
+		.pipe(gulp.dest('./'))
+		;
+
+	//gulp.src(config.originalJsFile)
+	//	.pipe(file(config.outputFile, ''))
+	//	.pipe(gulp.dest(config.outputFile));
+});
+
+gulp.task('build-js', function () {
+	var target = gulp.src(config.outputFile);
+
+	var source = gulp.src(config.originalHtmlFile)
 		.pipe(parse({
 			startTag: '<!-- build:markup -->',
 			endTag: '<!-- endbuild -->'
@@ -26,7 +45,7 @@ gulp.task('build', function () {
 				.reduce(function (previous, current) {
 					current = '\'' + current + '\'';
 
-					if(!previous) {
+					if (!previous) {
 						return current;
 					}
 
@@ -36,15 +55,12 @@ gulp.task('build', function () {
 			return 'return ' + htmlMarkup + ';';
 		}
 	}))
-		.pipe(rename(function (path) {
-			path.basename = config.appName;
-		}))
 		.pipe(gulp.dest('./'));
 });
 
-gulp.task('build-inline-css', ['build'], function () {
-	var target = gulp.src(config.appPath);
-	var sources = gulp.src('./src/css/*')
+gulp.task('build-css', function () {
+	var target = gulp.src(config.outputFile);
+	var sources = gulp.src(config.originalCssFiles)
 		.pipe(base64({
 			maxImageSize: 1000000 // bytes,
 		}));
@@ -60,3 +76,5 @@ gulp.task('build-inline-css', ['build'], function () {
 	}))
 		.pipe(gulp.dest('./'));
 });
+
+gulp.task('build', ['create-output-file', 'build-js', 'build-css']);
