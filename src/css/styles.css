@@ -114,6 +114,7 @@
 	background: -o-linear-gradient(top, #ffffff 0%, #fefefe 51%, #dadada 59%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, #ffffff 0%, #fefefe 51%, #dadada 59%); /* IE10+ */
 	background: linear-gradient(to bottom, #ffffff 0%, #fefefe 51%, #dadada 59%); /* W3C */
+	pointer-events: none;
 }
 
 .media-player .controls .volume .progress .slider {

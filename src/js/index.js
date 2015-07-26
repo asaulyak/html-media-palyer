@@ -10,6 +10,7 @@ window.mPlayer = (function () {
 	var isVolumeSliderPressed = false;
 	var volumeControl = null;
 	var volumeSlide = null;
+	var volumeProgressBar = null;
 
 	// end Private properties
 
@@ -60,15 +61,11 @@ window.mPlayer = (function () {
 	function init(options) {
 		appendToContainer(options.container);
 
+		setDomElements();
 		bindListeners();
 	}
 
 	function bindListeners() {
-		volumeControl
-			= window.document.querySelector('.media-player .controls .volume .progress .slider');
-		volumeSlide = window.document.querySelector('.media-player .controls .volume .progress .slide');
-
-
 		if (volumeControl) {
 			volumeControl.addEventListener('mousedown', onVolumeSliderMouseDown, false);
 			volumeControl.addEventListener('touchstart', onVolumeSliderMouseDown, false);
@@ -78,8 +75,20 @@ window.mPlayer = (function () {
 
 			window.document.addEventListener('mouseup', onVolumeSliderMouseUp, false);
 			window.document.addEventListener('touchend', onVolumeSliderMouseUp, false);
-
 		}
+
+		if (volumeProgressBar) {
+			volumeProgressBar.addEventListener('click', onVolumeSlideClicked, false);
+		}
+	}
+
+	function setDomElements() {
+		volumeControl
+			= window.document.querySelector('.media-player .controls .volume .progress .slider');
+
+		volumeSlide = window.document.querySelector('.media-player .controls .volume .progress .slide');
+
+		volumeProgressBar = window.document.querySelector('.media-player .controls .volume .progress .slider-container');
 	}
 
 	function setVolume(value) {
@@ -96,7 +105,7 @@ window.mPlayer = (function () {
 
 	// DOM event handlers
 
-	function onVolumeSliderMouseDown(event) {
+	function onVolumeSliderMouseDown() {
 		isVolumeSliderPressed = true;
 	}
 
@@ -113,10 +122,19 @@ window.mPlayer = (function () {
 		}
 	}
 
-	function onVolumeSliderMouseUp(event) {
+	function onVolumeSliderMouseUp() {
 		if (isVolumeSliderPressed) {
 			isVolumeSliderPressed = false;
 		}
+	}
+
+	function onVolumeSlideClicked(event) {
+		var slideRect = event.currentTarget.getBoundingClientRect();
+		var mouseX = event.touches ? event.touches[0].pageX : event.pageX;
+
+		var value = (mouseX - slideRect.left) / slideRect.width;
+
+		setVolume(value.toFixed(2));
 	}
 
 	// end DOM event handlers
@@ -127,6 +145,14 @@ window.mPlayer = (function () {
 		play: function (source) {
 			audio.src = source;
 			audio.play();
+		},
+
+		setVolume: function (value) {
+			setVolume(value);
+		},
+
+		updateMetadata: function (metadata) {
+
 		}
 	};
 
@@ -138,3 +164,6 @@ window.mPlayer = (function () {
 		}
 	};
 })();
+
+
+//////////
