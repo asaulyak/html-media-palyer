@@ -3,6 +3,8 @@ var inject = require('gulp-inject');
 var parse = require('./lib/parser.js');
 var base64 = require('gulp-base64');
 var rename = require('gulp-rename');
+var del = require('del');
+var runSequence = require('run-sequence');
 
 var config = {
 	appName: 'mplayer',
@@ -12,20 +14,15 @@ var config = {
 	originalCssFiles: './src/css/*'
 };
 
-gulp.task('create-output-file', function () {
-	var target = gulp.src(config.originalJsFile);
+gulp.task('clean', function (done) {
+	del([config.outputFile], done);
+});
 
-	//gulp.src(config.outputFile)
-	//	.pipe(clean())
-	//	.pipe(
+gulp.task('create-output-file', ['clean'], function (done) {
 	gulp.src(config.originalJsFile)
 		.pipe(rename(config.outputFile))
 		.pipe(gulp.dest('./'))
-		;
-
-	//gulp.src(config.originalJsFile)
-	//	.pipe(file(config.outputFile, ''))
-	//	.pipe(gulp.dest(config.outputFile));
+		.on('end', done);
 });
 
 gulp.task('build-js', function () {
@@ -60,6 +57,7 @@ gulp.task('build-js', function () {
 
 gulp.task('build-css', function () {
 	var target = gulp.src(config.outputFile);
+
 	var sources = gulp.src(config.originalCssFiles)
 		.pipe(base64({
 			maxImageSize: 1000000 // bytes,
@@ -77,4 +75,11 @@ gulp.task('build-css', function () {
 		.pipe(gulp.dest('./'));
 });
 
-gulp.task('build', ['create-output-file', 'build-js', 'build-css']);
+gulp.task('build', function (done) {
+	runSequence(
+		'create-output-file',
+		'build-js',
+		'build-css',
+		done
+	);
+});
