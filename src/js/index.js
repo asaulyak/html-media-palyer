@@ -22,9 +22,9 @@ window.mPlayer = (function () {
 	// Private methods
 
 	function generateHtml() {
-		<!-- build:markup -->
+		//<!-- build:markup -->
 
-		<!-- endbuild -->
+		//<!-- endbuild -->
 	}
 
 	function generateCss() {
@@ -34,9 +34,9 @@ window.mPlayer = (function () {
 
 		style.type = 'text/css';
 
-		<!-- build:css -->
+		//<!-- build:css -->
 
-		<!-- endbuild -->
+		//<!-- endbuild -->
 
 		if (style.styleSheet) {
 			style.styleSheet.cssText = css;
