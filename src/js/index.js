@@ -15,6 +15,7 @@ window.mPlayer = (function () {
 	var maxVolumeControl = null;
 	var playControl = null;
 	var isPlaying = false;
+	var metadata = {};
 
 	// end Private properties
 
@@ -100,6 +101,10 @@ window.mPlayer = (function () {
 		maxVolumeControl = window.document.querySelector('.media-player .controls .volume .max');
 
 		playControl = window.document.querySelector('.media-player .controls .playback');
+
+		metadata.artist = window.document.querySelector('.media-player .metadata .artist-title');
+		metadata.title = window.document.querySelector('.media-player .metadata .song-title');
+		metadata.cover = window.document.querySelector('.media-player .cover');
 	}
 
 	function setVolume(value) {
@@ -136,6 +141,15 @@ window.mPlayer = (function () {
 		audio.src = source;
 	}
 
+	function setMetadata(data) {
+		metadata.artist.textContent = data.artist || 'Anonymous';
+		metadata.title.textContent = data.title || 'Anonymous';
+
+		if(data.cover) {
+			metadata.cover.style.backgroundImage = 'url(' + data.cover + ')';
+		}
+	}
+
 	// DOM event handlers
 
 	function onVolumeSliderMouseDown() {
@@ -150,7 +164,6 @@ window.mPlayer = (function () {
 			var value = (mouseX - controlRect.left)
 				/ controlRect.width;
 
-			console.log(value);
 			setVolume(value.toFixed(2));
 		}
 	}
@@ -200,7 +213,7 @@ window.mPlayer = (function () {
 		},
 
 		updateMetadata: function (metadata) {
-
+			setMetadata(metadata);
 		}
 	};
 

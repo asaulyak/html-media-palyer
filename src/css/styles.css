@@ -186,7 +186,7 @@
 	font-weight: bold;
 }
 
-.media-player .metadata .album-title {
+.media-player .metadata .artist-title {
 	position: absolute;
 	top: 40px;
 	color: #9d9d9d;
