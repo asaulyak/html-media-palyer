@@ -11,6 +11,8 @@ window.mPlayer = (function () {
 	var volumeControl = null;
 	var volumeSlide = null;
 	var volumeProgressBar = null;
+	var muteVolumeControl = null;
+	var maxVolumeControl = null;
 
 	// end Private properties
 
@@ -66,20 +68,23 @@ window.mPlayer = (function () {
 	}
 
 	function bindListeners() {
-		if (volumeControl) {
-			volumeControl.addEventListener('mousedown', onVolumeSliderMouseDown, false);
-			volumeControl.addEventListener('touchstart', onVolumeSliderMouseDown, false);
 
-			window.document.addEventListener('mousemove', onDocumentMouseMove, false);
-			window.document.addEventListener('touchmove', onDocumentMouseMove, false);
+		// Bind volume controls
+		volumeControl.addEventListener('mousedown', onVolumeSliderMouseDown, false);
+		volumeControl.addEventListener('touchstart', onVolumeSliderMouseDown, false);
+		window.document.addEventListener('mousemove', onDocumentMouseMove, false);
+		window.document.addEventListener('touchmove', onDocumentMouseMove, false);
+		window.document.addEventListener('mouseup', onVolumeSliderMouseUp, false);
+		window.document.addEventListener('touchend', onVolumeSliderMouseUp, false);
 
-			window.document.addEventListener('mouseup', onVolumeSliderMouseUp, false);
-			window.document.addEventListener('touchend', onVolumeSliderMouseUp, false);
-		}
+		volumeProgressBar.addEventListener('click', onVolumeSlideClicked, false);
 
-		if (volumeProgressBar) {
-			volumeProgressBar.addEventListener('click', onVolumeSlideClicked, false);
-		}
+		muteVolumeControl.addEventListener('click', onMuteVolumeClicked, false);
+		maxVolumeControl.addEventListener('click', onMaxVolumeClicked, false);
+
+
+		// Bind playback controls
+
 	}
 
 	function setDomElements() {
@@ -89,6 +94,9 @@ window.mPlayer = (function () {
 		volumeSlide = window.document.querySelector('.media-player .controls .volume .progress .slide');
 
 		volumeProgressBar = window.document.querySelector('.media-player .controls .volume .progress .slider-container');
+
+		muteVolumeControl = window.document.querySelector('.media-player .controls .volume .mute');
+		maxVolumeControl = window.document.querySelector('.media-player .controls .volume .max');
 	}
 
 	function setVolume(value) {
@@ -137,6 +145,14 @@ window.mPlayer = (function () {
 		setVolume(value.toFixed(2));
 	}
 
+	function onMuteVolumeClicked() {
+		setVolume(0);
+	}
+
+	function onMaxVolumeClicked() {
+		setVolume(1);
+	}
+
 	// end DOM event handlers
 
 	// end Private methods
@@ -164,6 +180,3 @@ window.mPlayer = (function () {
 		}
 	};
 })();
-
-
-//////////
