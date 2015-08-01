@@ -13,6 +13,8 @@ window.mPlayer = (function () {
 	var volumeProgressBar = null;
 	var muteVolumeControl = null;
 	var maxVolumeControl = null;
+	var playControl = null;
+	var isPlaying = false;
 
 	// end Private properties
 
@@ -82,9 +84,8 @@ window.mPlayer = (function () {
 		muteVolumeControl.addEventListener('click', onMuteVolumeClicked, false);
 		maxVolumeControl.addEventListener('click', onMaxVolumeClicked, false);
 
-
 		// Bind playback controls
-
+		playControl.addEventListener('click', onPlaybackButtonClicked, false);
 	}
 
 	function setDomElements() {
@@ -97,6 +98,8 @@ window.mPlayer = (function () {
 
 		muteVolumeControl = window.document.querySelector('.media-player .controls .volume .mute');
 		maxVolumeControl = window.document.querySelector('.media-player .controls .volume .max');
+
+		playControl = window.document.querySelector('.media-player .controls .playback');
 	}
 
 	function setVolume(value) {
@@ -107,8 +110,30 @@ window.mPlayer = (function () {
 
 		volumeSlide.style.width = value * 100 + '%';
 		volumeControl.style.left = value * 100 + '%';
+	}
 
+	function setPlaying(play) {
+		isPlaying = !!play;
 
+		if(isPlaying) {
+			audio.play();
+		}
+		else {
+			audio.pause();
+		}
+
+		playControl.classList.remove('play');
+		playControl.classList.remove('stop');
+
+		playControl.classList.add(isPlaying ? 'stop' : 'play');
+	}
+
+	function togglePlay() {
+		setPlaying(!isPlaying);
+	}
+
+	function setSource(source) {
+		audio.src = source;
 	}
 
 	// DOM event handlers
@@ -153,14 +178,21 @@ window.mPlayer = (function () {
 		setVolume(1);
 	}
 
+	function onPlaybackButtonClicked(event) {
+		togglePlay();
+	}
+
 	// end DOM event handlers
 
 	// end Private methods
 
+
+	//Public methods
+
 	MediaPlayer.prototype = {
 		play: function (source) {
-			audio.src = source;
-			audio.play();
+			setSource(source);
+			setPlaying(true);
 		},
 
 		setVolume: function (value) {
@@ -171,6 +203,8 @@ window.mPlayer = (function () {
 
 		}
 	};
+
+	// end Public methods
 
 	return {
 		createPlayer: function (options) {
