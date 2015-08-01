@@ -208,6 +208,7 @@ window.mPlayer = (function () {
 
 	return {
 		createPlayer: function (options) {
+			options = options || {};
 			init(options);
 
 			return new MediaPlayer();
