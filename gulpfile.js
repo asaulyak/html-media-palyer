@@ -60,7 +60,7 @@ gulp.task('build-css', function () {
 
 	var sources = gulp.src(config.originalCssFiles)
 		.pipe(base64({
-			maxImageSize: 1000000 // bytes,
+			maxImageSize: 1000000 // bytes
 		}));
 
 	target.pipe(inject(sources, {
